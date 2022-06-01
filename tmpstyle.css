@@ -1,0 +1,53 @@
+.userprofile-body {
+    margin: 0px;
+    padding: 0px;
+    display: grid;
+    grid-template-rows: 15% auto;
+}
+.header {
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: auto 35%;
+
+    background-color: red;
+}
+.header-profile {
+    grid-row: 1;
+    display: flex;
+    background-color: gray;
+}
+.header-navigation {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: auto 25%;
+    background-color: lightgray;
+    padding: 0.35%;
+}
+.header-navigation-left {
+    grid-column: 1;
+    display: flex;
+    flex-direction: row;
+}
+.header-navigation-right {
+    grid-column: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.content {
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    background-color: lightgreen;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.content-card {
+    width: 50%;
+    height: 25%;
+    justify-self: center;
+    background-color: gray;
+    margin: 1%;
+}
