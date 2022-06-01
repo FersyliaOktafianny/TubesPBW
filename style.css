@@ -1,0 +1,20 @@
+
+body{
+    background-color: rgb(77, 211, 231);
+    color: rgb(94, 88, 88);
+    font-family: system-ui;
+    height: 300px;
+    line-height: 1.5;
+    margin: 0;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-box-pack: center;
+}
+h1 {
+    text-align: center;
+}
