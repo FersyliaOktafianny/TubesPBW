@@ -1,4 +1,6 @@
-
+*{
+    box-sizing: inherit;
+}
 body{
     background-color: rgb(77, 211, 231);
     color: rgb(94, 88, 88);
@@ -16,5 +18,24 @@ body{
     -webkit-box-pack: center;
 }
 h1 {
+    margin-top: 50%;
     text-align: center;
+}
+.form_signin{
+    margin-top: 5%;
+    max-width: 300px;
+    width: 100%;
+}
+div .container_form_username{
+    margin: 8px;
+}
+div .container_form_password{
+    margin: 8px;
+}
+i {
+    margin-right: 5%;
+}
+input {
+    border: 0;
+    
 }
