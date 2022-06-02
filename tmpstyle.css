@@ -2,43 +2,38 @@
     margin: 0px;
     padding: 0px;
     display: grid;
-    grid-template-rows: 15% auto;
+    grid-template-rows: 10% 5% auto;
+    background-color: rgb(77, 211, 231);
 }
 .header {
     grid-row: 1;
     display: grid;
     grid-template-rows: auto 35%;
 
-    background-color: red;
-}
-.header-profile {
-    grid-row: 1;
-    display: flex;
     background-color: gray;
 }
-.header-navigation {
+.navigation {
     grid-row: 2;
     display: grid;
     grid-template-columns: auto 25%;
     background-color: lightgray;
     padding: 0.35%;
 }
-.header-navigation-left {
+.navigation-left {
     grid-column: 1;
     display: flex;
     flex-direction: row;
 }
-.header-navigation-right {
+.navigation-right {
     grid-column: 2;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 .content {
-    grid-row: 2;
+    grid-row: 3;
     display: flex;
     flex-direction: column;
-    background-color: lightgreen;
     padding-top: 1%;
     padding-bottom: 1%;
     padding-left: 5%;
