@@ -1,5 +1,9 @@
 
 /*Sign Up*/
+.signup{
+	font-family: system-ui;
+	color: rgb(86, 86, 86);
+}
 .split {
 	height: 100%;
 	width: 50%;
@@ -31,7 +35,8 @@
 /*Welcome*/
 .welcome {
 	height: 70%;
-	width: 60%;
+	width: 70%;
+	font-size: larger;
 }
 
 .welcome img {
