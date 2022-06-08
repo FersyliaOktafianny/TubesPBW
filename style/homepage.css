@@ -29,7 +29,8 @@ img{
     margin-right: 0.35%;
     width: 150px;
 }
-.thread-body {
+
+.home-body {
     margin: 0px;
     padding: 0px;
     display: grid;
@@ -39,24 +40,62 @@ img{
     background-color: lightskyblue;
 }
 
-.content{
+.write-thread-box{
     grid-row:8;
     background-color: #CBF6FF;
     display:grid;
-    margin: 20px;
+    margin: 40px;
+    border-radius: 20px;
+    height: 190px;
 }
 
-.thread-title{
+.write-thread-box input{
     grid-row:1;
-    display:flex;
-    justify-content: center;
-    background-color: white;
-    margin:20px;
+    border-radius: 10px;
+    height: 100px;
+    width: 96%;
+    border: none;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.thread-content{
-    grid-row:2;
+.dropdown button{
     background-color: white;
-    margin:20px;
-    padding-left: 20px;
+    color:black;
+    border-color: white;
+    border-radius: 40pt;
+    border-style: solid;
+    padding: 10px;
+    width: 150px;
 }
+
+.dropdown select{
+    background-color: white;
+    border-color: white;
+    border-radius: 40pt;
+    padding: 10px;
+    margin-left: 30px;
+    margin-right: 120px;
+}
+
+.dropdown button{
+    grid-row:2;
+    margin-left: 700px;
+}
+
+.thread-card{
+    grid-row:9;
+    display: grid;
+    margin-left:50px;
+    margin-left:50px;
+    transition: 0.3s;
+    width: 40%;
+}
+
+.content-card .container{
+    margin:10px;
+    padding:10px;
+    background-color: #CBF6FF;
+}
+
