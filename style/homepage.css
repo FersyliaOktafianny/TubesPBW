@@ -84,6 +84,8 @@ img{
     margin-left: 700px;
 }
 
+
+
 .thread-card{
     grid-row:9;
     display: grid;
@@ -98,4 +100,27 @@ img{
     padding:10px;
     background-color: #CBF6FF;
 }
-
+.pagination {
+    display: inline-block;
+    padding-top: 10px;
+    margin-left: 45%;
+   
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  .pagination a.active {
+    background-color: #305b90;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .pagination a:hover:not(.active) {
+    background-color: #305b90;
+    border-radius: 5px;
+  }
