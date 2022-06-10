@@ -10,7 +10,7 @@ authenticateAdmin = (request, response, next) => {
 	if (request.session.loggedIn === "admin") {
 		next();
 	} else {
-		response.redirect("/admin/login");
+		response.redirect("back");
 	}
 };
 
