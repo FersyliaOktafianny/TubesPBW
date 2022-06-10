@@ -1,6 +1,7 @@
 import path from "path";
 import express from "express";
 import session from "express-session";
+import mysql from 'mysql';
 
 const app = express();
 
@@ -48,3 +49,49 @@ app.listen(port, (error) => {
         console.log(".: Listening to port 8080");
     }
 });
+
+
+//
+const pool = mysql.createPool({
+    user: 'root',
+    password: '',
+    database: 'tubespbw',
+    host: 'localhost',
+    connectionLimit: 10
+});
+
+const dbConnect = () => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, conn) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(conn);
+            }
+        })
+    })
+};
+
+const getUsers = conn => {
+    return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM users', (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        })
+    })
+};
+
+const addNewUser = (conn, name) => {
+    return new Promise((resolve, reject) => {
+        conn.query('INSERT INTO user_data SET ?', name, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
