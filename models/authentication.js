@@ -1,4 +1,4 @@
-authenticateUser = (request, response, next) => {
+const authenticateUser = (request, response, next) => {
 	if (request.session.loggedIn === "user" || request.session.loggedIn === "admin") {
 		next();
 	} else {
@@ -6,7 +6,7 @@ authenticateUser = (request, response, next) => {
 	}
 };
 
-authenticateAdmin = (request, response, next) => {
+const authenticateAdmin = (request, response, next) => {
 	if (request.session.loggedIn === "admin") {
 		next();
 	} else {
