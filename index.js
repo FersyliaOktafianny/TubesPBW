@@ -107,27 +107,6 @@ const executeQuery = (dbConn, query, queryArguments) => {
 //     })
 // })
 
-// // add users
-// app.post('/signup', (req, res) => {
-//     sqlPool.getConnection((err, connection) => {
-//         if (err) throw err
-//         console.log(`connected as id ${connection.threadId}`)
-
-//         const params = req.body
-
-//         connection.query('INSERT INTO users SET ?', params, (err, rows) => {
-//             connection.release()
-
-//             if (!err) {
-//                 res.send(rows)
-//             }
-//             else {
-//                 console.log(err)
-//             }
-//         })
-//     })
-// })
-
 //MIDDLEWARE: AUTHENTICATION
 const authenticateUser = (request, response, next) => {
 	if (request.session.loggedIn === "user" || request.session.loggedIn === "admin") {
@@ -159,10 +138,27 @@ app.get('/', async(request, response) =>{
     const name = request.body;
 })
 
+//============================== ROUTER ==============================
+
+//Login
 app.get('/login', (request, response) => {
     response.sendFile(path.join(path.resolve("view"), "login_User.html"));
 });
+app.post('/login', async (request, response) => {
+    const email = request.body.email;
+    const password = request.body.password;
+    const query = "select * from users where email=? and password=?;";
+    const dbconn = await getDbConnection(sqlPool);
+    const result = await executeQuery(dbconn, query, [email, password]);
+    dbconn.release();
+    if(result.length > 0){
+        response.redirect("/");
+    }else{
+        response.send("ERROR: USER NOT FOUND");
+    }
+});
 
+//Signup
 app.get('/signup', (request, response) => {
     response.sendFile(path.join(path.resolve("view"), "signup.html"));
 });
