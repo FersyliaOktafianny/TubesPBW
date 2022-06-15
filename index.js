@@ -1,12 +1,12 @@
 //START
 import express from "express";
 const app = express();
-const port = 8080;
+const port = 45;
 app.listen(port, (error) => {
     if (error) {
         console.log(".: ERROR");
     } else {
-        console.log(".: Listening to port 8080");
+        console.log(".: Listening to port " + port);
     }
 });
 
@@ -44,42 +44,6 @@ app.use(
 );
 
 //MYSQL
-// //Function: Membuat koneksi database baru di dalam pool.
-// const getDbConnection = (sqlPool) => {
-// 	return new Promise((resolve, reject) => {
-// 		sqlPool.getConnection((err, conn) => {
-// 			if (err) {
-// 				reject(err);
-// 			} else {
-// 				resolve(conn);
-// 			}
-// 		});
-// 	});
-// };
-
-// //queryArguments harus berbentuk array (bisa array kosong).
-// const executeQuery = (dbConn, query, queryArguments) => {
-// 	return new Promise((resolve, reject) => {
-// 		if (query.includes("?") && queryArguments.length > 0) {
-// 			dbConn.query(query, queryArguments, (err, result) => {
-// 				if (err) {
-// 					reject(err);
-// 				} else {
-// 					resolve(result);
-// 				}
-// 			});
-// 		} else {
-// 			dbConn.query(query, (err, result) => {
-// 				if (err) {
-// 					reject(err);
-// 				} else {
-// 					resolve(result);
-// 				}
-// 			});
-// 		}
-// 	});
-// };
-
 import mysql from "mysql";
 const sqlPool = mysql.createPool({
     user: "root",
@@ -87,6 +51,42 @@ const sqlPool = mysql.createPool({
     database: "rebbit",
     host: "localhost",
 })
+
+//Function: Membuat koneksi database baru di dalam pool.
+const getDbConnection = (sqlPool) => {
+	return new Promise((resolve, reject) => {
+		sqlPool.getConnection((err, conn) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(conn);
+			}
+		});
+	});
+};
+
+//queryArguments harus berbentuk array (bisa array kosong).
+const executeQuery = (dbConn, query, queryArguments) => {
+	return new Promise((resolve, reject) => {
+		if (query.includes("?") && queryArguments.length > 0) {
+			dbConn.query(query, queryArguments, (err, result) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(result);
+				}
+			});
+		} else {
+			dbConn.query(query, (err, result) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(result);
+				}
+			});
+		}
+	});
+};
 
 // //get all USERS
 // app.get('', (req, res) => {
@@ -145,8 +145,13 @@ const authenticateAdmin = (request, response, next) => {
 	}
 };
 
-//ROUTE
-app.get('/', (request, response) => {
+//ROUTER
+app.get('/', async (request, response) => {
+    const dbconn = await getDbConnection(sqlPool);
+    const result = await executeQuery(dbconn, "select * from users;", []);
+    if(result){
+        console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+    }
     response.sendFile(path.join(path.resolve("view"), "homepage.html"));
 });
 
@@ -156,4 +161,15 @@ app.get('/login', (request, response) => {
 
 app.get('/signup', (request, response) => {
     response.sendFile(path.join(path.resolve("view"), "signup.html"));
+});
+app.post('/signup', async (request, response) => {
+    const name = request.body.name;
+    const nickname = request.body.nickname;
+    const email = request.body.email;
+    const password = request.body.password;
+    const query = 'insert into users(name, nickname, email, password, role, joined_date, status) values(?, ?, ?, ?, 3, now(), 1);';
+    const dbconn = await getDbConnection(sqlPool);
+    const result = await executeQuery(dbconn, query, [name, nickname, email, password]);
+    dbconn.release();
+    response.redirect('/');
 });
