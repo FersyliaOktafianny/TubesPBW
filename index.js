@@ -1,5 +1,14 @@
+//START
 import express from "express";
 const app = express();
+const port = 8080;
+app.listen(port, (error) => {
+    if (error) {
+        console.log(".: ERROR");
+    } else {
+        console.log(".: Listening to port 8080");
+    }
+});
 
 //[SEMENTARA] STATIC PATH
 import path from "path";
@@ -70,8 +79,8 @@ app.use(
 // 		}
 // 	});
 // };
+
 import mysql from "mysql";
-import { getDbConnection, executeQuery } from "./models/sql.js";
 const sqlPool = mysql.createPool({
     user: "root",
     password: "",
@@ -79,45 +88,45 @@ const sqlPool = mysql.createPool({
     host: "localhost",
 })
 
-//get all USERS
-app.get('', (req, res) => {
-    sqlPool.getConnection((err, connection) => {
-        if (err) throw err
-        console.log(`connected as id ${connection.threadId}`)
+// //get all USERS
+// app.get('', (req, res) => {
+//     sqlPool.getConnection((err, connection) => {
+//         if (err) throw err
+//         console.log(`connected as id ${connection.threadId}`)
 
-        connection.query('SELECT * FROM users', (err, rows) => {
-            connection.release()
+//         connection.query('SELECT * FROM users', (err, rows) => {
+//             connection.release()
 
-            if (!err) {
-                res.send(rows)
-            }
-            else {
-                console.log(err)
-            }
-        })
-    })
-})
+//             if (!err) {
+//                 res.send(rows)
+//             }
+//             else {
+//                 console.log(err)
+//             }
+//         })
+//     })
+// })
 
-// add users
-app.post('/signup', (req, res) => {
-    sqlPool.getConnection((err, connection) => {
-        if (err) throw err
-        console.log(`connected as id ${connection.threadId}`)
+// // add users
+// app.post('/signup', (req, res) => {
+//     sqlPool.getConnection((err, connection) => {
+//         if (err) throw err
+//         console.log(`connected as id ${connection.threadId}`)
 
-        const params = req.body
+//         const params = req.body
 
-        connection.query('INSERT INTO users SET ?', params, (err, rows) => {
-            connection.release()
+//         connection.query('INSERT INTO users SET ?', params, (err, rows) => {
+//             connection.release()
 
-            if (!err) {
-                res.send(rows)
-            }
-            else {
-                console.log(err)
-            }
-        })
-    })
-})
+//             if (!err) {
+//                 res.send(rows)
+//             }
+//             else {
+//                 console.log(err)
+//             }
+//         })
+//     })
+// })
 
 //MIDDLEWARE: AUTHENTICATION
 const authenticateUser = (request, response, next) => {
@@ -137,15 +146,14 @@ const authenticateAdmin = (request, response, next) => {
 };
 
 //ROUTE
-import { router as authRoute } from "./routes/loginsignup.js";
-app.use("/auth", authRoute);
+app.get('/', (request, response) => {
+    response.sendFile(path.join(path.resolve("view"), "homepage.html"));
+});
 
-//START
-const port = 8080;
-app.listen(port, (error) => {
-    if (error) {
-        console.log(".: ERROR");
-    } else {
-        console.log(".: Listening to port 8080");
-    }
+app.get('/login', (request, response) => {
+    response.sendFile(path.join(path.resolve("view"), "login_User.html"));
+});
+
+app.get('/signup', (request, response) => {
+    response.sendFile(path.join(path.resolve("view"), "signup.html"));
 });
