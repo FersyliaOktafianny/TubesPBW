@@ -146,14 +146,18 @@ const authenticateAdmin = (request, response, next) => {
 };
 
 //ROUTER
-app.get('/', async (request, response) => {
-    const dbconn = await getDbConnection(sqlPool);
-    const result = await executeQuery(dbconn, "select * from users;", []);
-    if(result){
-        console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-    }
+app.get('/',(request, response) => {
+    // const dbconn = await getDbConnection(sqlPool);
+    // const result = await executeQuery(dbconn, "select * from users;", []);
+    // if(result){
+    //     console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+    // }
     response.sendFile(path.join(path.resolve("view"), "homepage.html"));
 });
+
+app.get('/', async(request, response) =>{
+    const name = request.body;
+})
 
 app.get('/login', (request, response) => {
     response.sendFile(path.join(path.resolve("view"), "login_User.html"));
@@ -162,14 +166,30 @@ app.get('/login', (request, response) => {
 app.get('/signup', (request, response) => {
     response.sendFile(path.join(path.resolve("view"), "signup.html"));
 });
+
 app.post('/signup', async (request, response) => {
     const name = request.body.name;
     const nickname = request.body.nickname;
     const email = request.body.email;
     const password = request.body.password;
-    const query = 'insert into users(name, nickname, email, password, role, joined_date, status) values(?, ?, ?, ?, 3, now(), 1);';
+    const confirmpass = request.body.confirm_password;
+    if (password == confirmpass){
+        console.log('password valid');
+        const query = 'insert into users(name, nickname, email, password, role, joined_date, status) values(?, ?, ?, ?, 3, now(), 1);';
+    }
     const dbconn = await getDbConnection(sqlPool);
     const result = await executeQuery(dbconn, query, [name, nickname, email, password]);
     dbconn.release();
     response.redirect('/');
 });
+
+app.get('/userprofile', (request, response) => {
+    response.sendFile(path.join(path.resolve("view"), "userprofile.html"));
+});
+
+
+app.get('/Threadpage', (request, response) => {
+    response.sendFile(path.join(path.resolve("view"), "userprofile.html"));
+});
+
+
