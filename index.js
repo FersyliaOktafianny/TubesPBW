@@ -138,7 +138,7 @@ app.get('/', async(request, response) =>{
     const name = request.body;
 })
 
-//========================ufbutdvtyrstrescytf====== ROUTER ==============================
+//============================== ROUTER ==============================
 
 //Login
 app.get('/login', (request, response) => {
