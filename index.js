@@ -35,6 +35,41 @@ app.use(
 );
 
 //MYSQL
+// //Function: Membuat koneksi database baru di dalam pool.
+// const getDbConnection = (sqlPool) => {
+// 	return new Promise((resolve, reject) => {
+// 		sqlPool.getConnection((err, conn) => {
+// 			if (err) {
+// 				reject(err);
+// 			} else {
+// 				resolve(conn);
+// 			}
+// 		});
+// 	});
+// };
+
+// //queryArguments harus berbentuk array (bisa array kosong).
+// const executeQuery = (dbConn, query, queryArguments) => {
+// 	return new Promise((resolve, reject) => {
+// 		if (query.includes("?") && queryArguments.length > 0) {
+// 			dbConn.query(query, queryArguments, (err, result) => {
+// 				if (err) {
+// 					reject(err);
+// 				} else {
+// 					resolve(result);
+// 				}
+// 			});
+// 		} else {
+// 			dbConn.query(query, (err, result) => {
+// 				if (err) {
+// 					reject(err);
+// 				} else {
+// 					resolve(result);
+// 				}
+// 			});
+// 		}
+// 	});
+// };
 import mysql from "mysql";
 import { getDbConnection, executeQuery } from "./models/sql.js";
 const sqlPool = mysql.createPool({
@@ -83,6 +118,23 @@ app.post('/signup', (req, res) => {
         })
     })
 })
+
+//MIDDLEWARE: AUTHENTICATION
+const authenticateUser = (request, response, next) => {
+	if (request.session.loggedIn === "user" || request.session.loggedIn === "admin") {
+		next();
+	} else {
+		response.redirect("/login");
+	}
+};
+
+const authenticateAdmin = (request, response, next) => {
+	if (request.session.loggedIn === "admin") {
+		next();
+	} else {
+		response.redirect("back");
+	}
+};
 
 //ROUTE
 import { router as authRoute } from "./routes/loginsignup.js";
