@@ -139,7 +139,7 @@ app.get('/', async(request, response) =>{
 })
 
 //============================== ROUTER ==============================
-
+//test hello pbw
 //Login
 app.get('/login', (request, response) => {
     response.sendFile(path.join(path.resolve("view"), "login_User.html"));
@@ -172,12 +172,11 @@ app.post('/signup', async (request, response) => {
     if (password == confirmpass){
         console.log('password valid');
         const query = 'insert into users(name, nickname, email, password, role, joined_date, status) values(?, ?, ?, ?, 3, now(), 1);';
-    }else{
-        const dbconn = await getDbConnection(sqlPool);
-        const result = await executeQuery(dbconn, query, [name, nickname, email, password]);
-        dbconn.release();
-        response.redirect('/');
     }
+    const dbconn = await getDbConnection(sqlPool);
+    const result = await executeQuery(dbconn, query, [name, nickname, email, password]);
+    dbconn.release();
+    response.redirect('/');
 });
 
 app.get('/userprofile', (request, response) => {
