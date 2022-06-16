@@ -1,4 +1,5 @@
-//START
+//============================== START ==============================
+
 import express from "express";
 const app = express();
 const port = 45;
@@ -10,26 +11,28 @@ app.listen(port, (error) => {
 	}
 });
 
-//[SEMENTARA] STATIC PATH
+//============================== STATIC PATH ==============================
+
 import path from "path";
-const viewPath = path.resolve("view");
-const stylePath = path.resolve("style");
+const stylePath = path.resolve("styles");
 const assetsPath = path.resolve("assets");
-app.use("/view", express.static(viewPath));
-app.use("/style", express.static(stylePath));
+app.use("/styles", express.static(stylePath));
 app.use("/assets", express.static(assetsPath));
 
-//VIEW ENGINE
-//app.set("view engine", "ejs");
+//============================== VIEW ENGINE ==============================
 
-//FORM (POST) HANDLER
+app.set("view engine", "ejs");
+
+//============================== FORM (POST) HANDLER ==============================
+
 app.use(
 	express.urlencoded({
 		extended: true,
 	})
 );
 
-//SESSION
+//============================== SESSION ==============================
+
 import session from "express-session";
 app.use(
 	session({
@@ -43,12 +46,10 @@ app.use(
 	})
 );
 
-//ROUTE
-app.get("/", (request, response) => {
-	response.sendFile(path.join(path.resolve("view"), "homepage.html"));
-});
+//============================== ROUTE ==============================
 
+import { router as homeRoute } from "./routes/home.js";
 import { router as authenticationRoute } from "./routes/authentication.js";
-app.use("/authentication", authenticationRoute, (request, response, next) => {
-	response.redirect("/");
-});
+
+app.get("/", homeRoute);
+app.use("/authentication", authenticationRoute);
