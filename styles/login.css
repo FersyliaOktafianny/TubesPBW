@@ -1,0 +1,88 @@
+
+/*Login*/
+.login{
+	font-family: system-ui;
+	color: rgb(86, 86, 86);
+}
+.split {
+	height: 100%;
+	width: 50%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+.left {
+	left: 0;
+	background-color: lightskyblue;
+}
+
+.right {
+	right: 0;
+	background-color: lightskyblue;
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+/*Welcome*/
+.welcome {
+	height: 70%;
+	width: 70%;
+	font-size: larger;
+}
+
+.welcome img {
+	height: 75%;
+}
+
+/*Login Card*/
+.card {
+	height: 70%;
+	width: 60%;
+	border-radius: 10px;
+	background-color: lightblue;
+}
+
+.card h2 {
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+.log-in-form {
+	padding: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.log-in-form input {
+	padding: 8px;
+	margin:  5px;
+	width: 180px;
+	text-align: center;
+	border-color: white;
+	border-radius: 10px;
+	display: block;
+}
+
+.log-in-form input:focus {
+	outline: none;
+	background-color: lightgray;
+}
+
+.log-in-form button {
+	background-color: black;
+	color: white;
+	padding: 5px;
+	margin: 10px;
+	width: 150px;
+	border-radius: 5px;
+}
