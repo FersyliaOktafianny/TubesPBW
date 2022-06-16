@@ -1,6 +1,7 @@
 //============================== START ==============================
 
 import express from "express";
+
 const app = express();
 const port = 45;
 app.listen(port, (error) => {
@@ -14,6 +15,7 @@ app.listen(port, (error) => {
 //============================== STATIC PATH ==============================
 
 import path from "path";
+
 const stylesPath = path.resolve("styles");
 const assetsPath = path.resolve("assets");
 const scriptsPath = path.resolve("scripts");
@@ -36,6 +38,7 @@ app.use(
 //============================== SESSION ==============================
 
 import session from "express-session";
+
 app.use(
 	session({
 		secret: "secret rebbit",
