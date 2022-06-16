@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="../styles/homepage.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+		<title>Home | Rebbit</title>
+	</head>
+	<header>
+		<div class="head">
+			<h2>REBBIT</h2>
+            <div>
+                <% if (nickname) { %>
+                    <a href="/userprofile">
+                        <h4><%= nickname %></h4>
+                    </a>
+                <% } else { %>
+                    <a href="/authentication">
+                        <h4>Log In</h4>
+                    </a>
+                <% } %>
+                <img src="../assets/rebbit1-removebg-preview.png" />
+            </div>
+		</div>
+		<div class="category">
+			<button>Entertainement</button>
+			<button>Sports</button>
+			<button>Hobby</button>
+			<button>Technology</button>
+			<button>Food and Travel</button>
+			<button>Fashion</button>
+		</div>
+	</header>
+
+	<body class="home-body">
+		<div class="write-thread-box">
+			<form action="">
+				<div class="input"><input type="text" id="thread" name="thread" /><br /><br /></div>
+				<div class="navigation">
+					<select name="Category" id="category">
+						<option value="entertainement">Entertainement</option>
+						<option value="sports">Sports</option>
+						<option value="hobby">Hobby</option>
+						<option value="Technology">Technology</option>
+					</select>
+					<i class="fa fa-upload fa-lg" aria-hidden="true"></i>
+					<Button type="submit">Post</Button>
+				</div>
+			</form>
+		</div>
+		<div class="thread-card">
+			<% for (const row of queryResult) { %>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2><%= row.title %></h2>
+					</div>
+					<div class="thread-content">
+						<p>THREAD CONTENT HERE</p>
+					</div>
+				</div>
+			</div>
+			<% } %>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

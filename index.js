@@ -1,199 +1,59 @@
-//START
+//============================== START ==============================
+
 import express from "express";
 const app = express();
 const port = 45;
 app.listen(port, (error) => {
-    if (error) {
-        console.log(".: ERROR");
-    } else {
-        console.log(".: Listening to port " + port);
-    }
+	if (error) {
+		console.log(".: ERROR");
+	} else {
+		console.log(".: Listening to port " + port);
+	}
 });
 
-//[SEMENTARA] STATIC PATH
+//============================== STATIC PATH ==============================
+
 import path from "path";
-const viewPath = path.resolve("view");
-const stylePath = path.resolve("style");
+const stylesPath = path.resolve("styles");
 const assetsPath = path.resolve("assets");
-app.use("/view", express.static(viewPath));
-app.use("/style", express.static(stylePath));
+const scriptsPath = path.resolve("scripts");
+app.use("/styles", express.static(stylesPath));
 app.use("/assets", express.static(assetsPath));
+app.use("/scripts", express.static(scriptsPath));
 
-//VIEW ENGINE
-//app.set("view engine", "ejs");
+//============================== VIEW ENGINE ==============================
 
-//FORM (POST) HANDLER
+app.set("view engine", "ejs");
+
+//============================== FORM (POST) HANDLER ==============================
+
 app.use(
-    express.urlencoded({
-        extended: true,
-    })
+	express.urlencoded({
+		extended: true,
+	})
 );
 
-//SESSION
+//============================== SESSION ==============================
+
 import session from "express-session";
 app.use(
-    session({
-        secret: "secret rebbit",
-        name: "rebbit.session",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 1000 * 60 * 60 * 24, //1 hari
-        },
-    })
+	session({
+		secret: "secret rebbit",
+		name: "rebbit.session",
+		resave: false,
+		saveUninitialized: false,
+		cookie: {
+			maxAge: 1000 * 60 * 60 * 24, //1 hari
+		},
+	})
 );
 
-//MYSQL
-import mysql from "mysql";
-const sqlPool = mysql.createPool({
-    user: "root",
-    password: "",
-    database: "rebbit",
-    host: "localhost",
-})
+//============================== ROUTE ==============================
 
-//Function: Membuat koneksi database baru di dalam pool.
-const getDbConnection = (sqlPool) => {
-	return new Promise((resolve, reject) => {
-		sqlPool.getConnection((err, conn) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(conn);
-			}
-		});
-	});
-};
+import { router as homeRoute } from "./routes/home.js";
+import { router as authenticationRoute } from "./routes/authentication.js";
+import {router as userprofileRoute} from "./routes/userprofile.js"
 
-//queryArguments harus berbentuk array (bisa array kosong).
-const executeQuery = (dbConn, query, queryArguments) => {
-	return new Promise((resolve, reject) => {
-		if (query.includes("?") && queryArguments.length > 0) {
-			dbConn.query(query, queryArguments, (err, result) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(result);
-				}
-			});
-		} else {
-			dbConn.query(query, (err, result) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(result);
-				}
-			});
-		}
-	});
-};
-
-// //get all USERS
-// app.get('', (req, res) => {
-//     sqlPool.getConnection((err, connection) => {
-//         if (err) throw err
-//         console.log(`connected as id ${connection.threadId}`)
-
-//         connection.query('SELECT * FROM users', (err, rows) => {
-//             connection.release()
-
-//             if (!err) {
-//                 res.send(rows)
-//             }
-//             else {
-//                 console.log(err)
-//             }
-//         })
-//     })
-// })
-
-//MIDDLEWARE: AUTHENTICATION
-const authenticateUser = (request, response, next) => {
-	if (request.session.loggedIn === "user" || request.session.loggedIn === "admin") {
-		next();
-	} else {
-		response.redirect("/login");
-	}
-};
-
-const authenticateAdmin = (request, response, next) => {
-	if (request.session.loggedIn === "admin") {
-		next();
-	} else {
-		response.redirect("back");
-	}
-};
-
-//ROUTER
-app.get('/',(request, response) => {
-    // const dbconn = await getDbConnection(sqlPool);
-    // const result = await executeQuery(dbconn, "select * from users;", []);
-    // if(result){
-    //     console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-    // }
-    response.sendFile(path.join(path.resolve("view"), "homepage.html"));
-});
-
-app.get('/', async(request, response) =>{
-    const name = request.body;
-})
-
-//============================== ROUTER ==============================
-//test hello pbw
-//========================ufbutdvtyrstrescytf====== ROUTER ==============================
-
-//Login
-app.get('/login', (request, response) => {
-    response.sendFile(path.join(path.resolve("view"), "login_User.html"));
-});
-app.post('/login', async (request, response) => {
-    const email = request.body.email;
-    const password = request.body.password;
-    const query = "select * from users where email=? and password=?;";
-    const dbconn = await getDbConnection(sqlPool);
-    const result = await executeQuery(dbconn, query, [email, password]);
-    dbconn.release();
-    if(result.length > 0){
-        response.redirect("/");
-    }else{
-        response.send("ERROR: USER NOT FOUND");
-    }
-});
-
-//Signup
-app.get('/signup', (request, response) => {
-    response.sendFile(path.join(path.resolve("view"), "signup.html"));
-});
-
-app.post('/signup', async (request, response) => {
-    const name = request.body.name;
-    const nickname = request.body.nickname;
-    const email = request.body.email;
-    const password = request.body.password;
-    const confirmpass = request.body.confirm_password;
-    if (password == confirmpass){
-        console.log('password valid');
-        const query = 'insert into users(name, nickname, email, password, role, joined_date, status) values(?, ?, ?, ?, 3, now(), 1);';
-    }
-    const dbconn = await getDbConnection(sqlPool);
-    const result = await executeQuery(dbconn, query, [name, nickname, email, password]);
-    dbconn.release();
-    response.redirect('/');
-});
-
-app.get('/userprofile', (request, response) => {
-    response.sendFile(path.join(path.resolve("view"), "userprofile.html"));
-});
-
-
-app.get('/Threadpage', (request, response) => {
-    response.sendFile(path.join(path.resolve("view"), "userprofile.html"));
-});
-
-//File Upload
-import http from 'http';
-
-http.createServer(function (req,res){
-    res.writeHead(200,{'Content-Type': 'text/plain'});
-    res.write('File Upload sucsess');
-});
+app.get("/", homeRoute);
+app.use("/authentication", authenticationRoute);
+app.use("/userprofile", userprofileRoute)
