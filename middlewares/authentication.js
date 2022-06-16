@@ -27,7 +27,7 @@ const login = async (request, response, next) => {
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
 	if (result.length > 0) {
-		request.login_data = result;
+		request.login_data = result[0];
 		next();
 	} else {
 		response.redirect("back");
