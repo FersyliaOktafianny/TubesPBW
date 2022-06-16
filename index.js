@@ -14,10 +14,12 @@ app.listen(port, (error) => {
 //============================== STATIC PATH ==============================
 
 import path from "path";
-const stylePath = path.resolve("styles");
+const stylesPath = path.resolve("styles");
 const assetsPath = path.resolve("assets");
-app.use("/styles", express.static(stylePath));
+const scriptsPath = path.resolve("scripts");
+app.use("/styles", express.static(stylesPath));
 app.use("/assets", express.static(assetsPath));
+app.use("/scripts", express.static(scriptsPath));
 
 //============================== VIEW ENGINE ==============================
 
@@ -50,6 +52,8 @@ app.use(
 
 import { router as homeRoute } from "./routes/home.js";
 import { router as authenticationRoute } from "./routes/authentication.js";
+import {router as userprofileRoute} from "./routes/userprofile.js"
 
 app.get("/", homeRoute);
 app.use("/authentication", authenticationRoute);
+app.use("/userprofile", userprofileRoute)
