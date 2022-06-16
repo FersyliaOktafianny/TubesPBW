@@ -190,4 +190,10 @@ app.get('/Threadpage', (request, response) => {
     response.sendFile(path.join(path.resolve("view"), "userprofile.html"));
 });
 
+//File Upload
+import http from 'http';
 
+http.createServer(function (req,res){
+    res.writeHead(200,{'Content-Type': 'text/plain'});
+    res.write('File Upload sucsess');
+});
