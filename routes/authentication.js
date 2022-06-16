@@ -1,20 +1,32 @@
 import express from "express";
-import path from "path";
-import { signup as signupMiddleware } from "../middlewares/signup.js";
-import { login as loginMiddleware } from "../middlewares/login.js";
+import { login, checkStatus, signup } from "../middlewares/authentication.js";
+import { addUserToSession, removeUserFromSession } from "../middlewares/session.js";
 
 const router = express.Router();
 
-const sendLoginPage = (request, response) => {
-	response.sendFile(path.join(path.resolve("view"), "login_User.html"));
-};
-const sendSignupPage = (request, response) => {
-	response.sendFile(path.join(path.resolve("view"), "signup.html"));
-};
+router.get("/", (request, response, next) => {
+	response.redirect("/authentication/login");
+});
 
-router.get("/login", sendLoginPage);
-router.post("/login", loginMiddleware);
-router.get("/signup", sendSignupPage);
-router.post("/signup", signupMiddleware);
+//LOGIN
+router.get("/login", (request, response, next) => {
+	response.render("login");
+});
+router.post("/login", login, addUserToSession, checkStatus, (request, response, next) => {
+	response.redirect("/");
+});
+
+//LOGOUT
+router.get("/logout", removeUserFromSession, (request, response, next) => {
+	response.redirect("/");
+});
+
+//SINGUP
+router.get("/signup", (request, response, next) => {
+	response.render("signup");
+});
+router.post("/signup", signup, (request, response, next) => {
+	response.redirect("/authentication/login");
+});
 
 export { router };
