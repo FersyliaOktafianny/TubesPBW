@@ -50,5 +50,5 @@ app.get("/", (request, response) => {
 
 import { router as authenticationRoute } from "./routes/authentication.js";
 app.use("/authentication", authenticationRoute, (request, response, next) => {
-    response.redirect("/");
+	response.redirect("/");
 });
