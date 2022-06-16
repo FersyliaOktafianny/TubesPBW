@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/", getAllThread, (request, response, next) => {
 	const dataToRender = {
+		nickname: request.session.user_nickname,
 		queryResult: request.queryResult,
 	};
 	response.render("home", dataToRender);
