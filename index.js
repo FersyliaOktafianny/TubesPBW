@@ -55,8 +55,10 @@ app.use(
 
 import { router as homeRoute } from "./routes/home.js";
 import { router as authenticationRoute } from "./routes/authentication.js";
-import {router as userprofileRoute} from "./routes/userprofile.js"
+import { router as userprofileRoute } from "./routes/userprofile.js";
+import { router as threadRoute } from "./routes/thread.js";
 
 app.get("/", homeRoute);
 app.use("/authentication", authenticationRoute);
-app.use("/userprofile", userprofileRoute)
+app.use("/userprofile", userprofileRoute);
+app.use("/thread", threadRoute);
