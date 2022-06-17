@@ -1,22 +1,24 @@
 <html>
 	<head>
-		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="../styles/main.css" />
 		<link rel="stylesheet" href="../styles/userprofile.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-		<title><%= nickname %>'s Profile</title>
+		<title>REBBIT | <%= nickname %>'S PROFILE</title>
 	</head>
-	<body class="userprofile-body">
-		<div class="header">
-			<h2><%= nickname %></h2>
-			<img src="../assets/rebbit1-removebg-preview.png" />
-		</div>
-		<div class="navigation">
-			<div class="navigation-left">
-				<button>My Threads</button>
-				<button>My Replies</button>
+	<body>
+		<div class="sticky">
+			<div class="header">
+				<div>
+					<img onclick="location.href='/'" src="../assets/rebbit1-removebg-preview.png" />
+					<h2>REBBIT | <%= nickname %>'s PROFILE</h2>
+				</div>
+				<div>
+					<button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
+				</div>
 			</div>
-			<div class="navigation-right">
-				<form method="get" action="/authentication/logout"><button>Log Out</button></form>
+			<div class="navigation">
+				<button type="button" onclick="location.href='/userprofile'">My Account</button>
+				<button type="button">My Threads</button>
+				<button type="button">My Replies</button>
 			</div>
 		</div>
 		<div class="content">

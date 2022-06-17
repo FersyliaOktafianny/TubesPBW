@@ -1,0 +1,82 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: system-ui;
+	color: rgb(86, 86, 86);
+	background-color: lightskyblue;
+}
+button {
+	background-color: white;
+	color: black;
+	border-style: solid;
+	border-color: white;
+	border-radius: 30px;
+	min-width: 75px;
+	cursor: pointer;
+}
+select {
+	background-color: white;
+	border-color: white;
+	border-radius: 40pt;
+}
+
+.sticky {
+	display: grid;
+	grid-template-rows: 75px 35px;
+	background-color: white;
+
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+.header {
+	grid-row: 1;
+	display: grid;
+	grid-template-columns: auto auto;
+	background-color: rgb(86, 86, 86);
+	color: lightgray;
+}
+.header > div * {
+	margin: 10px;
+}
+.header > div:first-child {
+	grid-column: 1;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	text-transform: uppercase;
+}
+.header > div:last-child {
+	grid-column: 2;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+.header img {
+	max-height: 50px;
+	cursor: pointer;
+}
+
+.navigation {
+	grid-row: 2;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	background-color: lightblue;
+}
+.navigation * {
+	margin: 5px;
+}
+
+.content {
+	padding-top: 150px; /* > .header height */
+	padding-left: 50px;
+	padding-right: 50px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+}
