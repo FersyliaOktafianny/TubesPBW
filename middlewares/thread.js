@@ -42,7 +42,7 @@ const getAllThreadFirstContent = async (request, response, next) => {
 
 const getAllThisThreadContent = async (request, response, next) => {
 	const threadid = request.params.threadid;
-	const query = "SELECT * FROM threads LEFT JOIN thread_contents ON threads.id=thread_contents.thread_id WHERE thread_id=? ORDER BY thread_contents.created_date ASC;";
+	const query = "SELECT * FROM threads LEFT JOIN thread_contents ON threads.id=thread_contents.thread_id LEFT JOIN users ON thread_contents.author_id=users.id WHERE thread_id=1 ORDER BY thread_contents.created_date ASC";
 	const queryArgs = [threadid];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
