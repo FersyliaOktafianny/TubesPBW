@@ -22,11 +22,13 @@
 <body class="thread-body">
     <div class="content">
         <div class="thread-title">
-            <h1>Thread Title Rebbit</h1>
+            <h1><%= queryAllThisThreadContent[0].title %></h1>
         </div>
+        <% for (const row of queryAllThisThreadContent) { %>
         <div class="thread-content">
-            <p>Thread written here..........</p>
+            <p><%= row.thread_content %></p>
         </div>
+        <% } %>
     </div>
 </body>
 
