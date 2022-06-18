@@ -19,6 +19,9 @@ select {
 	border-color: white;
 	border-radius: 40pt;
 }
+.clickable {
+	cursor: pointer;
+}
 
 .sticky {
 	display: grid;

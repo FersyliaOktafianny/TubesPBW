@@ -13,8 +13,8 @@
 					<h2>REBBIT | HOME</h2>
 				</div>
 				<div>
-					<% if (nickname) { %>
-					<button type="button" onclick="location.href='/userprofile'"><%= nickname %></button>
+					<% if (user_nickname) { %>
+					<button type="button" onclick="location.href='/userprofile'"><%= user_nickname %></button>
 					<button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
 					<% } else { %>
 					<button type="button" onclick="location.href='authentication/login'">Log In</button>
@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="content">
-			<% if (nickname) { %>
+			<% if (user_nickname) { %>
 				<form class="thread-form" method="post" action="/thread/add">
 					<div>
 						<h2>Create Thread</h2>
@@ -55,10 +55,15 @@
 				<div class="content-card">
 					<div class="container">
 						<div class="thread-title">
-							<h2><%= row.title %></h2>
+							<h2 class="clickable" onclick="location.href='/thread/<%= row.id %>'"><%= row.title %></h2>
 						</div>
 						<div class="thread-content">
-							<p>THREAD CONTENT HERE</p>
+							<% for (const row2 of queryAllThreadFirstContent) { %>
+								<% if (row2.thread_id == row.id) { %>
+									<p><%= row2.thread_content %></p>
+									<% break; %>
+								<% } %>
+							<% } %>
 						</div>
 					</div>
 				</div>
