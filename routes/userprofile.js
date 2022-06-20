@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", checkLogin, checkStatus, (request, response, next) => {
 	const dataToRender = {
-		nickname: request.session.user_nickname,
+		user_nickname: request.session.user_nickname,
 	};
 	response.render("userprofile", dataToRender);
 });

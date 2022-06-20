@@ -2,31 +2,66 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/thread.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>Thread | Rebbit</title>
 </head>
-<header>
-    <div class="head">
-        <h2>[[Username]]</h2>
-        <img src="../assets/rebbit1-removebg-preview.png" />
+<body>
+    <div class="sticky">
+        <div class="header">
+            <div>
+                <img onclick="location.href='/'" src="../assets/rebbit1-removebg-preview.png" />
+                <h2>REBBIT | THREAD</h2>
+            </div>
+            <div>
+                <% if (user_nickname) { %>
+                <button type="button" onclick="location.href='/userprofile'"><%= user_nickname %></button>
+                <button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
+                <% } else { %>
+                <button type="button" onclick="location.href='/authentication/login'">Log In</button>
+                <button type="button" onclick="location.href='/authentication/signup'">Sign Up</button>
+                <% } %>
+            </div>
+        </div>
+        <div class="navigation">
+            <% for (const row of queryAllThreadCategory) { %>
+            <button type="button"><%= row.name %></button>
+            <% } %>
+        </div>
     </div>
-    <div class="category">
-        <button>Entertainement</button>
-        <button>Sports</button>
-        <button>Hobby</button>
-        <button>Technology</button>
-        <button>Food and Travel</button>
-        <button>Fashion</button>
-    </div>
-</header>
-<body class="thread-body">
     <div class="content">
-        <div class="thread-title">
-            <h1>Thread Title Rebbit</h1>
+        <div class="main-thread-card">
+            <h1><%= queryAllThisThreadContent[0].title %></h1>
+            <h4><%= queryAllThisThreadContent[0].nickname %></h4>
+            <div class="thread-content">
+                <p><%= queryAllThisThreadContent[0].thread_content %></p>
+            </div>
         </div>
-        <div class="thread-content">
-            <p>Thread written here..........</p>
+
+        <% if (user_nickname) { %>
+            <form class="form-card" method="post" action="/thread/<%= queryAllThreadCategory[0].id %>/addReply">
+                <div>
+                    <h2>Add Reply</h2>
+                </div>
+                <div>
+                    <textarea name="replycontent" placeholder="Your Reply"></textarea>
+                </div>
+                <div>
+                    <i class="fa fa-upload fa-lg" aria-hidden="true"></i>
+                    <Button type="submit">Post</Button>
+                </div>
+            </form>
+        <% } %>
+
+        <% for (let i = 1; i < queryAllThisThreadContent.length; i++) { %>
+        <div class="thread-card">
+            <h4><%= queryAllThisThreadContent[i].nickname %></h4>
+            <div class="thread-content">
+                <p><%= queryAllThisThreadContent[i].thread_content %></p>
+            </div>
         </div>
+        <% } %>
     </div>
 </body>
 
