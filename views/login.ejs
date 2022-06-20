@@ -19,6 +19,7 @@
 				<form class="log-in-form" method="post" action="/authentication/login">
 					<input type="email" name="email" placeholder="Email">
 					<input type="password" name="password" placeholder="Password">
+					<p><%= isNotAuth %></p>
 					<button type="submit" value="submit">Log In</button>
 				</form>
 				<p>

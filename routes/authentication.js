@@ -1,5 +1,6 @@
 import express from "express";
 import { login, checkStatus, signup } from "../middlewares/authentication.js";
+import { validateLogIn } from "../middlewares/inputvalidation.js";
 import { addUserToSession, removeUserFromSession } from "../middlewares/session.js";
 
 const router = express.Router();
@@ -10,9 +11,11 @@ router.get("/", (request, response, next) => {
 
 //LOGIN
 router.get("/login", (request, response, next) => {
-	response.render("login");
+	// response.render("login");
+	response.render("login", {isNotAuth:''});
 });
-router.post("/login", login, addUserToSession, checkStatus, (request, response, next) => {
+
+router.post("/login", login, validateLogIn, addUserToSession, checkStatus, (request, response, next) => {
 	response.redirect("/");
 });
 
