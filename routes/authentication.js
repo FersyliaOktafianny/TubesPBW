@@ -1,6 +1,6 @@
 import express from "express";
-import { login, checkStatus, signup } from "../middlewares/authentication.js";
-import { validateLogIn } from "../middlewares/inputvalidation.js";
+import { login, checkStatus} from "../middlewares/authentication.js";
+import { validateLogIn, signUpValidation } from "../middlewares/inputvalidation.js";
 import { addUserToSession, removeUserFromSession } from "../middlewares/session.js";
 
 const router = express.Router();
@@ -26,9 +26,9 @@ router.get("/logout", removeUserFromSession, (request, response, next) => {
 
 //SINGUP
 router.get("/signup", (request, response, next) => {
-	response.render("signup");
+	response.render("signup", {passwordmatch:''});
 });
-router.post("/signup", signup, (request, response, next) => {
+router.post("/signup", signUpValidation, (request, response, next) => {
 	response.redirect("/authentication/login");
 });
 
