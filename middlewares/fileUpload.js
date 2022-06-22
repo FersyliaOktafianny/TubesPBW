@@ -12,9 +12,17 @@ const form = new formidable.IncomingForm();
             res.write('File Upload sukses');
             res.end();
         });
-
     }); 
-
 });
 
+
+import multer from "multer";
+const uploadFile = async (request, response, next) => {
+    const destination = (request, response, cb) =>{
+        cb(null, 'uploads');
+    };
+    const filename = (request, response, cb) =>{
+        cb(null, file.fieldname + '-' + Date.now());
+    };
+};
 
