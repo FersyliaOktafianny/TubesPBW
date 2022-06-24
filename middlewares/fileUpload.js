@@ -15,15 +15,5 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage: storage})
-
-
-
-// const uploadFile = async (request, response, next) => {
-//     const destination = (request, response, cb) =>{
-//         cb(null, 'uploads');
-//     };
-//     const filename = (request, response, cb) =>{
-//         cb(null, file.fieldname + '-' + Date.now());
-//     };
-// };
+upload.single("image")
 
