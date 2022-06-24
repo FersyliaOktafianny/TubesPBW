@@ -48,7 +48,7 @@
         </div>
 
         <% if (user_nickname) { %>
-            <form class="form-card" method="post" action="/thread/<%= queryAllThisThreadContent[0].id %>/addReply">
+            <form class="form-card" method="post" action="/thread/<%= queryAllThisThreadContent[0].thread_id %>/addReply">
                 <div>
                     <h2>Add Reply</h2>
                 </div>
