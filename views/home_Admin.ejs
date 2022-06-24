@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../styles/main.css" />
+		<link rel="stylesheet" href="../styles/home.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+		<title>Home Admin | Rebbit</title>
+	</head>
+	<body>
+		<div class="sticky">
+			<div class="header">
+				<div>
+					<img onclick="location.href='/'" src="../assets/rebbit1-removebg-preview.png" />
+					<h2>ADMIN REBBIT | HOME</h2>
+				</div>
+				<div>
+					<% if (user_nickname) { %>
+					<button type="button" onclick="location.href='/userprofile'"><%= user_nickname %></button>
+					<button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
+					<% } else { %>
+					<button type="button" onclick="location.href='/authentication/login'">Log In</button>
+					<button type="button" onclick="location.href='/authentication/signup'">Sign Up</button>
+					<% } %>
+				</div>
+			</div>
+			<div class="navigation">
+                <button type="button">User Table</button>
+                <button type="button">Thread List</button>
+			</div>
+		</div>
+        <div class="table of user">
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Nickname</th>
+					<th>Email</th>
+					<th>Role</th>
+				</tr>
+				<%
+				if(userData.length!=0){
+					var i=1;
+					userData.forEach(function(data)){
+				%>
+				
+			</table>
+        </div>
+		<div class="content">
+			<% if (user_nickname) { %>
+				<form class="form-card" method="post" action="/thread/add">
+					<div>
+						<h2>Create Thread</h2>
+					</div>
+					<div>
+						<input type="text" name="threadtitle" placeholder="Thread Title" />
+						<textarea name="threadcontent" placeholder="Thread Content"></textarea>
+					</div>
+					<div>
+						<select name="threadcategory">
+							<option disabled selected>Select Category</option>
+							<% for (const row of queryAllThreadCategory) { %>
+							<option value="<%= row.id %>"><%= row.name %></option>
+							<% } %>
+						</select>
+						<button id='files' type="file"><i class="fa fa-upload fa-lg" aria-hidden="true"></i></button>
+						<Button type="submit">Post</Button>
+					</div>
+				</form>
+			<% } %>
+			<% for (const row of queryAllThread) { %>
+			<div class="thread-card">
+				<div>
+					<h2 class="clickable" onclick="location.href='/thread/<%= row.id %>'"><%= row.title %></h2>
+				</div>
+				<div class="thread-content">
+					<% for (const row2 of queryAllThreadFirstContent) { %>
+						<% if (row2.thread_id == row.id) { %>
+							<p><%= row2.thread_content %></p>
+							<% break; %>
+						<% } %>
+					<% } %>
+				</div>
+			</div>
+			<% } %>
+
+
+
+			
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+			<div class="content-card">
+				<div class="container">
+					<div class="thread-title">
+						<h2>Thread Title</h2>
+					</div>
+					<div class="thread-content">
+						<p>Architect & Engineer</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

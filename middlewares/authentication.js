@@ -7,13 +7,8 @@ const login = async (request, response, next) => {
 	const queryArgs = [email, password];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
-	if (result.length > 0) {
-		request.login_data = result[0];
-		next();
-	} 
-	else {
-		response.redirect("back");
-	}
+	request.login_data = result[0];
+	next();
 };
 
 const checkStatus = (request, response, next) => {
