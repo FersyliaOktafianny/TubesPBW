@@ -35,12 +35,20 @@
             <h1><%= queryAllThisThreadContent[0].title %></h1>
             <h4><%= queryAllThisThreadContent[0].nickname %></h4>
             <div class="thread-content">
-                <p><%= queryAllThisThreadContent[0].thread_content %></p>
+                <div>
+                    <p><%= queryAllThisThreadContent[0].thread_content %></p>
+                </div>
+                <div>
+                    <p><%= queryAllThisThreadContent[0].like_count %></p>
+                    <form method="post" action="/thread/<%= queryAllThisThreadContent[0].thread_id %>/<%= queryAllThisThreadContent[0].id %>/addLike">
+                        <button type="submit" class="clickable">Like</button>
+                    </form>
+                </div>
             </div>
         </div>
 
         <% if (user_nickname) { %>
-            <form class="form-card" method="post" action="/thread/<%= queryAllThreadCategory[0].id %>/addReply">
+            <form class="form-card" method="post" action="/thread/<%= queryAllThisThreadContent[0].thread_id %>/addReply">
                 <div>
                     <h2>Add Reply</h2>
                 </div>
@@ -58,7 +66,15 @@
         <div class="thread-card">
             <h4><%= queryAllThisThreadContent[i].nickname %></h4>
             <div class="thread-content">
-                <p><%= queryAllThisThreadContent[i].thread_content %></p>
+                <div>
+                    <p><%= queryAllThisThreadContent[i].thread_content %></p>
+                </div>
+                <div>
+                    <p><%= queryAllThisThreadContent[i].like_count %></p>
+                    <form method="post" action="/thread/<%= queryAllThisThreadContent[i].thread_id %>/<%= queryAllThisThreadContent[i].id %>/addLike">
+                        <button type="submit" class="clickable">Like</button>
+                    </form>
+                </div>
             </div>
         </div>
         <% } %>

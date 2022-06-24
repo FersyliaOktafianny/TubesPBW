@@ -79,4 +79,14 @@ const addReply = async (request, response, next) => {
 	next();
 };
 
-export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, addThread, addReply };
+const addLike = async (request, response, next) => {
+	const threadcontentid = request.params.threadcontentid;
+	const query = "UPDATE thread_contents SET like_count=like_count+1 WHERE id=?;";
+	const queryArgs = [threadcontentid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
+	next();
+};
+
+export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, addThread, addReply, addLike };

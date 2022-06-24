@@ -45,7 +45,9 @@
 							<option value="<%= row.id %>"><%= row.name %></option>
 							<% } %>
 						</select>
-						<button id='files' type="file"><i class="fa fa-upload fa-lg" aria-hidden="true"></i></button>
+						<from action="" method="post" enctype="multipar/form-data">
+							<input type="file" name="fileupload" id="fileUpload"/> <br/>
+						</from>
 						<Button type="submit">Post</Button>
 					</div>
 				</form>
@@ -58,7 +60,15 @@
 				<div class="thread-content">
 					<% for (const row2 of queryAllThreadFirstContent) { %>
 						<% if (row2.thread_id == row.id) { %>
-							<p><%= row2.thread_content %></p>
+							<div>
+								<p><%= row2.thread_content %></p>
+							</div>
+							<div>
+								<p><%= row2.like_count %></p>
+								<form method="post" action="/thread/<%= row.id %>/<%= row2.id %>/addLike">
+									<button type="submit" class="clickable">Like</button>
+								</form>
+							</div>
 							<% break; %>
 						<% } %>
 					<% } %>
