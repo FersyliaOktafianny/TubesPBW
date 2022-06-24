@@ -58,7 +58,15 @@
 				<div class="thread-content">
 					<% for (const row2 of queryAllThreadFirstContent) { %>
 						<% if (row2.thread_id == row.id) { %>
-							<p><%= row2.thread_content %></p>
+							<div>
+								<p><%= row2.thread_content %></p>
+							</div>
+							<div>
+								<p><%= row2.like_count %></p>
+								<form method="post" action="/thread/<%= row.id %>/<%= row2.id %>/addLike">
+									<button type="submit" class="clickable">Like</button>
+								</form>
+							</div>
 							<% break; %>
 						<% } %>
 					<% } %>
