@@ -9,11 +9,10 @@ router.get("/", (request, response, next) => {
 	response.redirect("/");
 });
 router.get("/:threadid", getAllThisThreadContent, getAllThreadCategory, (request, response, next) => {
-	
-	console.log(request.queryAllThisThreadContent);
-
 	const dataToRender = {
 		user_nickname: request.session.user_nickname,
+		threadid: request.params.threadid,
+		threadtitle: request.threadtitle,
 		queryAllThisThreadContent: request.queryAllThisThreadContent,
 		queryAllThreadCategory: request.queryAllThreadCategory,
 	};
