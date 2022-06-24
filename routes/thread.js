@@ -1,7 +1,7 @@
 import express from "express";
 import { checkLogin, checkStatus } from "../middlewares/authentication.js";
-import { addThread, getAllThreadCategory, getAllThisThreadContent } from "../middlewares/thread.js";
-import { validateAddThread } from "../middlewares/inputvalidation.js";
+import { addThread, addReply, getAllThreadCategory, getAllThisThreadContent } from "../middlewares/thread.js";
+import { validateAddThread, validateAddReply } from "../middlewares/inputvalidation.js";
 
 const router = express.Router();
 
@@ -21,6 +21,8 @@ router.post("/add", checkLogin, checkStatus, validateAddThread, addThread, (requ
 	response.redirect("/");
 });
 
-router.post("/:threadid/addReply", (request, response, next) => {});
+router.post("/:threadid/addReply", checkLogin, checkStatus, validateAddReply, addReply, (request, response, next) => {
+	response.redirect("/thread/" + request.params.threadid);
+});
 
 export { router };
