@@ -27,103 +27,41 @@
                 <button type="button">Thread List</button>
 			</div>
 		</div>
-        <div class="table of user">
+        <div class="table-of-user">
 			<table>
 				<tr>
+					<th>No</th>
 					<th>Name</th>
 					<th>Nickname</th>
 					<th>Email</th>
 					<th>Role</th>
+					<th>Moderator Set</th>
+					<th>Ban Status</th>
 				</tr>
 				<%
 				if(userData.length!=0){
 					var i=1;
-					userData.forEach(function(data)){
+					userData.forEach(function(data){
 				%>
-				
+				<tr>
+					<td><%=i; %></td>
+					<td><%= data.name %></td>
+					<td><%= data.nickname %></td>
+					<td><%= data.email_address %></td>
+					<td><%= data.role %></td>
+					<td><a href="">Set As Moderator</a></td>
+					<td><a href="">Ban</a></td>
+				</tr>
+				<% i++; })%>
+				<% } else{ %>
+					<tr>
+						<td colspan="7">No Data Found</td>
+					</tr>
+				<% } %>
 			</table>
+			<div class="table-of-thread">
+
+			</div>
         </div>
-		<div class="content">
-			<% if (user_nickname) { %>
-				<form class="form-card" method="post" action="/thread/add">
-					<div>
-						<h2>Create Thread</h2>
-					</div>
-					<div>
-						<input type="text" name="threadtitle" placeholder="Thread Title" />
-						<textarea name="threadcontent" placeholder="Thread Content"></textarea>
-					</div>
-					<div>
-						<select name="threadcategory">
-							<option disabled selected>Select Category</option>
-							<% for (const row of queryAllThreadCategory) { %>
-							<option value="<%= row.id %>"><%= row.name %></option>
-							<% } %>
-						</select>
-						<button id='files' type="file"><i class="fa fa-upload fa-lg" aria-hidden="true"></i></button>
-						<Button type="submit">Post</Button>
-					</div>
-				</form>
-			<% } %>
-			<% for (const row of queryAllThread) { %>
-			<div class="thread-card">
-				<div>
-					<h2 class="clickable" onclick="location.href='/thread/<%= row.id %>'"><%= row.title %></h2>
-				</div>
-				<div class="thread-content">
-					<% for (const row2 of queryAllThreadFirstContent) { %>
-						<% if (row2.thread_id == row.id) { %>
-							<p><%= row2.thread_content %></p>
-							<% break; %>
-						<% } %>
-					<% } %>
-				</div>
-			</div>
-			<% } %>
-
-
-
-			
-			<div class="content-card">
-				<div class="container">
-					<div class="thread-title">
-						<h2>Thread Title</h2>
-					</div>
-					<div class="thread-content">
-						<p>Architect & Engineer</p>
-					</div>
-				</div>
-			</div>
-			<div class="content-card">
-				<div class="container">
-					<div class="thread-title">
-						<h2>Thread Title</h2>
-					</div>
-					<div class="thread-content">
-						<p>Architect & Engineer</p>
-					</div>
-				</div>
-			</div>
-			<div class="content-card">
-				<div class="container">
-					<div class="thread-title">
-						<h2>Thread Title</h2>
-					</div>
-					<div class="thread-content">
-						<p>Architect & Engineer</p>
-					</div>
-				</div>
-			</div>
-			<div class="content-card">
-				<div class="container">
-					<div class="thread-title">
-						<h2>Thread Title</h2>
-					</div>
-					<div class="thread-content">
-						<p>Architect & Engineer</p>
-					</div>
-				</div>
-			</div>
-		</div>
 	</body>
 </html>

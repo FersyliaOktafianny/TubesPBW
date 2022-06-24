@@ -138,3 +138,27 @@ select {
 	border-radius: 20px;
 	background-color: white;
 }
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 95%;
+	height: 20%;
+	margin-top: 120px;
+	margin-left: 20px;
+}
+  
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: lightgrey;
+}
+
+tr:nth-child(odd) {
+	background-color: white;
+}
+

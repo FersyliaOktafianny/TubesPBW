@@ -62,3 +62,5 @@ app.get("/", homeRoute);
 app.use("/authentication", authenticationRoute);
 app.use("/userprofile", userprofileRoute);
 app.use("/thread", threadRoute);
+
+app.get("/homeadmin", homeRoute);
