@@ -67,6 +67,16 @@ const addThread = async (request, response, next) => {
 	next();
 };
 
-const addReply = async (request, response, next) => {};
+const addReply = async (request, response, next) => {
+	const threadid = request.params.threadid;
+	const replycontent = request.body.replycontent;
+	const replyauthor = request.session.user_id;
+	const query = "INSERT INTO thread_contents(thread_content, like_count, created_date, thread_id, author_id) VALUES(?, 0, now(), ?, ?);";
+	const queryArgs = [replycontent, threadid, replyauthor];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
+	next();
+};
 
-export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, addThread };
+export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, addThread, addReply };

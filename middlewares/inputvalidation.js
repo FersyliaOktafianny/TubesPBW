@@ -8,8 +8,26 @@ const validateAddThread = (request, response, next) => {
 	const threadtitle = request.body.threadtitle;
 	const threadcategory = request.body.threadcategory;
 	const threadcontent = request.body.threadcontent;
-	const threadauthor = request.session.user_id;
 	if (!threadtitle || !threadcategory || !threadcontent) {
+		response.redirect("/");
+		return;
+	}
+	next();
+};
+
+const validateAddReply = async (request, response, next) => {
+	const threadid = request.params.threadid;
+	const replycontent = request.body.replycontent;
+	if (!threadid || !replycontent) {
+		response.redirect("/");
+		return;
+	}
+	const query = "SELECT * FROM threads WHERE id=?;";
+	const queryArgs = [threadid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
+	if(!result){
 		response.redirect("/");
 		return;
 	}
@@ -64,4 +82,4 @@ const signUpValidation = async (request, response, next) => {
 	}
 }
 
-export { validateAddThread, validateLogIn, signUpValidation};
+export { validateAddThread, validateAddReply, validateLogIn, signUpValidation};
