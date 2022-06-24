@@ -45,7 +45,9 @@
 							<option value="<%= row.id %>"><%= row.name %></option>
 							<% } %>
 						</select>
-						<button id='files' type="file"><i class="fa fa-upload fa-lg" aria-hidden="true"></i></button>
+						<from action="" method="post" enctype="multipar/form-data">
+							<input type="file" name="fileupload" id="fileUpload"/> <br/>
+						</from>
 						<Button type="submit">Post</Button>
 					</div>
 				</form>
