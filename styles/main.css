@@ -135,6 +135,15 @@ select {
 	padding: 10px;
 }
 .thread-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: stretch;
 	border-radius: 20px;
 	background-color: white;
+}
+.thread-content > div:nth-child(2) {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }
