@@ -3,7 +3,7 @@ import { sqlPool, getDbConnection, executeQuery } from "../modules/sql.js";
 const login = async (request, response, next) => {
 	const email = request.body.email;
 	const password = request.body.password;
-	const query = "SELECT email,password FROM users;";
+	const query = "SELECT * FROM users WHERE email=? AND password=?;";
 	const queryArgs = [email, password];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
