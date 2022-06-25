@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/home.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <title>Home Admin | Rebbit</title>
+</head>
+
+<body>
+    <div class="sticky">
+        <div class="header">
+            <div>
+                <img onclick="location.href='/'" src="../assets/rebbit1-removebg-preview.png" />
+                <h2>ADMIN REBBIT | HOME</h2>
+            </div>
+            <div>
+                <% if (user_nickname) { %>
+                    <button type="button" onclick="location.href='/userprofile'">
+                        <%= user_nickname %>
+                    </button>
+                    <button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
+                    <% } else { %>
+                        <button type="button" onclick="location.href='/authentication/login'">Log In</button>
+                        <button type="button" onclick="location.href='/authentication/signup'">Sign Up</button>
+                        <% } %>
+            </div>
+        </div>
+        <div class="navigation">
+            <button type="button">User Table</button>
+            <button type="button">Thread List</button>
+        </div>
+    </div>
+    <div class="table-of-thread">
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Title</th>
+                <th>Created Date</th>
+                <th>Category</th>
+                <th>Lock By</th>
+                <th>Author</th>
+                <th>Like Count</th>
+            </tr>
+            <% if(userData.length!=0){ var i=1; userData.forEach(function(data){ %>
+                <tr>
+                    <td>
+                        <%=i; %>
+                    </td>
+                    <td>
+                        <%= data.title %>
+                    </td>
+                    <td>
+                        <%= data.created_date %>
+                    </td>
+                    <td>
+                        <%= data.name %>
+                    </td>
+                    <td>
+                        <%= data.lock_by %>
+                    </td>
+                    <td>
+                        <%= data.users.name %>
+                    </td>
+                    <td>
+                        <%= data.like_count %>
+                    </td>
+                </tr>
+                <% i++; })%>
+                    <% } else{ %>
+                        <tr>
+                            <td colspan="7">No Data Found</td>
+                        </tr>
+                        <% } %>
+        </table>
+    </div>
+    </div>
+</body>
+
+</html>

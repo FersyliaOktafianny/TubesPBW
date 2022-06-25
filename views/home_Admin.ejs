@@ -60,7 +60,36 @@
 				<% } %>
 			</table>
 			<div class="table-of-thread">
-
+				<table>
+					<tr>
+						<th>No</th>
+						<th>Title</th>
+						<th>Created Date</th>
+						<th>Lock By</th>
+						<th>Author</th>
+						<th>Like Count</th>
+					</tr>
+					<%
+					if(userData.length!=0){
+						var i=1;
+						userData.forEach(function(data){
+					%>
+					<tr>
+						<td><%=i; %></td>
+						<td><%= data.name %></td>
+						<td><%= data.nickname %></td>
+						<td><%= data.email_address %></td>
+						<td><%= data.role %></td>
+						<td><a href="">Set As Moderator</a></td>
+						<td><a href="">Ban</a></td>
+					</tr>
+					<% i++; })%>
+					<% } else{ %>
+						<tr>
+							<td colspan="7">No Data Found</td>
+						</tr>
+					<% } %>
+				</table>
 			</div>
         </div>
 	</body>

@@ -63,4 +63,6 @@ app.use("/authentication", authenticationRoute);
 app.use("/userprofile", userprofileRoute);
 app.use("/thread", threadRoute);
 
-app.get("/homeadmin", homeRoute);
+import { router as adminAuthenticationRoute } from "./routes/admin-authentication.js";
+
+app.get("/admin_login", adminAuthenticationRoute);

@@ -14,14 +14,4 @@ router.get("/", getAllThread, getAllThreadFirstContent, getAllThreadCategory, (r
 	response.render("home", dataToRender);
 });
 
-router.get("/homeadmin", getAllUsers, (request, response, next) => {
-	const dataToRender = {
-		user_nickname: request.session.user_nickname,
-		userData : request.queryAllUsers,
-		queryAllThread: request.queryAllThread,
-		queryAllThreadFirstContent: request.queryAllThreadFirstContent,
-	};
-	response.render("home_admin", dataToRender);
-});
-
 export { router };

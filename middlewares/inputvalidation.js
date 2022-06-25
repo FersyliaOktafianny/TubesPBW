@@ -41,20 +41,32 @@ const validateLogIn = async (request, response, next) => {
 	const queryArgs = [email, password];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
+	
 	if (result.length > 0) {
 		if (result[0].password != password) {
-			response.render("login", {isNotAuth:'wrong password'})
-			return;
+			if(result[0].role == 'admin'){
+				response.render("login_admin", {isNotAuth:'wrong password'})
+				return;
+			}
+			else{
+				response.render("login", {isNotAuth:'wrong password'})
+				return;
+			}
 		} else{
 			request.login_data = result[0]
 			next();
 		}
 	}
 	else {
-		response.render("login", {isNotAuth:'email not found!'});
-		// response.redirect("back");
+		if(result[0].role == 'admin'){
+			response.render("login_admin", {isNotAuth:'email not found!'})
+			return;
+		}
+		else{
+			response.render("login", {isNotAuth:'email not found!'});
+			// response.redirect("back");
+		}
 	}
-	
 }
 
 const signUpValidation = async (request, response, next) => {
