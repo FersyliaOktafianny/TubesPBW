@@ -66,6 +66,17 @@ const getAllMyThread = async (request, response, next) => {
 	next();
 };
 
+const getAllMyReply = async (request, response, next) => {
+	const authorid = request.session.user_id;
+	const query = "SELECT thread_contents.*, threads.title FROM thread_contents LEFT JOIN threads ON threads.id=thread_contents.thread_id WHERE thread_contents.author_id=?;";
+	const queryArgs = [authorid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
+	request.queryAllMyReply = result;
+	next();
+};
+
 const getAllMyThreadFirstContent = async (request, response, next) => {
 	const authorid = request.session.user_id;
 	const query = "SELECT * FROM thread_contents WHERE author_id=? GROUP BY thread_id ORDER BY created_date ASC;";
@@ -115,4 +126,4 @@ const addLike = async (request, response, next) => {
 	next();
 };
 
-export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, getAllMyThread, getAllMyThreadFirstContent, addThread, addReply, addLike };
+export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, getAllMyThread, getAllMyReply, getAllMyThreadFirstContent, addThread, addReply, addLike };
