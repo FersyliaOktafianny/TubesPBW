@@ -23,26 +23,21 @@
 			</div>
 		</div>
 		<div class="content">
-			<% for (const row of queryAllMyThread) { %>
+			<% for (const row of queryAllMyReply) { %>
 			<div class="thread-card">
 				<div>
-					<h2 class="clickable" onclick="location.href='/thread/<%= row.id %>'"><%= row.title %></h2>
+					<h2 class="clickable" onclick="location.href='/thread/<%= row.thread_id %>'"><%= row.title %></h2>
 				</div>
 				<div class="thread-content">
-                    <% for (const row2 of queryAllMyThreadFirstContent) { %>
-						<% if (row2.thread_id == row.id) { %>
-							<div>
-								<p><%= row2.thread_content %></p>
-							</div>
-							<div>
-								<p><%= row2.like_count %></p>
-								<form method="post" action="/thread/<%= row.id %>/<%= row2.id %>/addLike">
-									<button type="submit" class="clickable">Like</button>
-								</form>
-							</div>
-							<% break; %>
-						<% } %>
-					<% } %>
+                    <div>
+                        <p><%= row.thread_content %></p>
+                    </div>
+                    <div>
+                        <p><%= row.like_count %></p>
+                        <form method="post" action="/thread/<%= row.thread_id %>/<%= row.id %>/addLike">
+                            <button type="submit" class="clickable">Like</button>
+                        </form>
+                    </div>
 				</div>
 			</div>
 			<% } %>
