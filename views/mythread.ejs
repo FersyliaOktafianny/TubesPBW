@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../styles/main.css" />
+		<link rel="stylesheet" href="../styles/home.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+		<title>Home | Rebbit</title>
+	</head>
+	<body>
+		<div class="sticky">
+			<div class="header">
+				<div>
+					<img onclick="location.href='/'" src="../assets/rebbit1-removebg-preview.png" />
+					<h2>REBBIT | <%= user_nickname %>'s THREADS</h2>
+				</div>
+				<div>
+					<button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
+				</div>
+			</div>
+			<div class="navigation">
+				<button type="button" onclick="location.href='/my/profile'">My Account</button>
+				<button type="button" onclick="location.href='/my/thread'">My Threads</button>
+				<button type="button" onclick="location.href='/my/reply'">My Replies</button>
+			</div>
+		</div>
+		<div class="content">
+			<% for (const row of queryAllMyThread) { %>
+			<div class="thread-card">
+				<div>
+					<h2 class="clickable" onclick="location.href='/thread/<%= row.id %>'"><%= row.title %></h2>
+				</div>
+				<div class="thread-content">
+                    <% for (const row2 of queryAllMyThreadFirstContent) { %>
+						<% if (row2.thread_id == row.id) { %>
+							<div>
+								<p><%= row2.thread_content %></p>
+							</div>
+							<div>
+								<p><%= row2.like_count %></p>
+								<form method="post" action="/thread/<%= row.id %>/<%= row2.id %>/addLike">
+									<button type="submit" class="clickable">Like</button>
+								</form>
+							</div>
+							<% break; %>
+						<% } %>
+					<% } %>
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</body>
+</html>

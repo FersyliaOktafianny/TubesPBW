@@ -14,7 +14,7 @@
 				</div>
 				<div>
 					<% if (user_nickname) { %>
-					<button type="button" onclick="location.href='/userprofile'"><%= user_nickname %></button>
+					<button type="button" onclick="location.href='/my/profile'"><%= user_nickname %></button>
 					<button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
 					<% } else { %>
 					<button type="button" onclick="location.href='/authentication/login'">Log In</button>
@@ -45,7 +45,7 @@
 							<option value="<%= row.id %>"><%= row.name %></option>
 							<% } %>
 						</select>
-						<from action="" method="post" enctype="multipar/form-data">
+						<from action="/thread" method="post" enctype="multipar/form-data">
 							<input type="file" name="fileupload" id="fileUpload"/> <br/>
 						</from>
 						<Button type="submit">Post</Button>

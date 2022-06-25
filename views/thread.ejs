@@ -16,7 +16,7 @@
             </div>
             <div>
                 <% if (user_nickname) { %>
-                <button type="button" onclick="location.href='/userprofile'"><%= user_nickname %></button>
+                <button type="button" onclick="location.href='/my/profile'"><%= user_nickname %></button>
                 <button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
                 <% } else { %>
                 <button type="button" onclick="location.href='/authentication/login'">Log In</button>
@@ -32,7 +32,7 @@
     </div>
     <div class="content">
         <div class="main-thread-card">
-            <h1><%= queryAllThisThreadContent[0].title %></h1>
+            <h1><%= threadtitle %></h1>
             <h4><%= queryAllThisThreadContent[0].nickname %></h4>
             <div class="thread-content">
                 <div>
@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <p><%= queryAllThisThreadContent[0].like_count %></p>
-                    <form method="post" action="/thread/<%= queryAllThisThreadContent[0].thread_id %>/<%= queryAllThisThreadContent[0].id %>/addLike">
+                    <form method="post" action="/thread/<%= threadid %>/<%= queryAllThisThreadContent[0].id %>/addLike">
                         <button type="submit" class="clickable">Like</button>
                     </form>
                 </div>
@@ -48,7 +48,7 @@
         </div>
 
         <% if (user_nickname) { %>
-            <form class="form-card" method="post" action="/thread/<%= queryAllThisThreadContent[0].thread_id %>/addReply">
+            <form class="form-card" method="post" action="/thread/<%= threadid %>/addReply">
                 <div>
                     <h2>Add Reply</h2>
                 </div>
@@ -56,7 +56,9 @@
                     <textarea name="replycontent" placeholder="Your Reply"></textarea>
                 </div>
                 <div>
-                    <i class="fa fa-upload fa-lg" aria-hidden="true"></i>
+                    <from action="/thread" method="post" enctype="multipar/form-data">
+                        <input type="file" name="fileupload" id="fileUpload"/> <br/>
+                    </from>
                     <Button type="submit">Post</Button>
                 </div>
             </form>
@@ -71,7 +73,7 @@
                 </div>
                 <div>
                     <p><%= queryAllThisThreadContent[i].like_count %></p>
-                    <form method="post" action="/thread/<%= queryAllThisThreadContent[i].thread_id %>/<%= queryAllThisThreadContent[i].id %>/addLike">
+                    <form method="post" action="/thread/<%= threadid %>/<%= queryAllThisThreadContent[i].id %>/addLike">
                         <button type="submit" class="clickable">Like</button>
                     </form>
                 </div>

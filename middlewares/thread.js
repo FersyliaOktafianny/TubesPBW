@@ -42,12 +42,49 @@ const getAllThreadFirstContent = async (request, response, next) => {
 
 const getAllThisThreadContent = async (request, response, next) => {
 	const threadid = request.params.threadid;
-	const query = "SELECT * FROM threads LEFT JOIN thread_contents ON threads.id=thread_contents.thread_id LEFT JOIN users ON thread_contents.author_id=users.id WHERE thread_id=? ORDER BY thread_contents.created_date ASC";
-	const queryArgs = [threadid];
+	const query1 = "SELECT title FROM threads WHERE id=?;";
+	const queryArgs1 = [threadid];
+	const query2 = "SELECT thread_contents.*, users.nickname FROM thread_contents LEFT JOIN users ON thread_contents.author_id=users.id WHERE thread_id=? ORDER BY created_date ASC";
+	const queryArgs2 = [threadid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result1 = await executeQuery(dbConn, query1, queryArgs1);
+	const result2 = await executeQuery(dbConn, query2, queryArgs2);
+	dbConn.release();
+	request.threadtitle = result1[0].title;
+	request.queryAllThisThreadContent = result2;
+	next();
+};
+
+const getAllMyThread = async (request, response, next) => {
+	const authorid = request.session.user_id;
+	const query = "SELECT * FROM threads WHERE author_id=? ORDER BY created_date DESC;";
+	const queryArgs = [authorid];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
 	dbConn.release();
-	request.queryAllThisThreadContent = result;
+	request.queryAllMyThread = result;
+	next();
+};
+
+const getAllMyReply = async (request, response, next) => {
+	const authorid = request.session.user_id;
+	const query = "SELECT thread_contents.*, threads.title FROM thread_contents LEFT JOIN threads ON threads.id=thread_contents.thread_id WHERE thread_contents.author_id=?;";
+	const queryArgs = [authorid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
+	request.queryAllMyReply = result;
+	next();
+};
+
+const getAllMyThreadFirstContent = async (request, response, next) => {
+	const authorid = request.session.user_id;
+	const query = "SELECT * FROM thread_contents WHERE author_id=? GROUP BY thread_id ORDER BY created_date ASC;";
+	const queryArgs = [authorid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
+	request.queryAllMyThreadFirstContent = result;
 	next();
 };
 
@@ -89,4 +126,4 @@ const addLike = async (request, response, next) => {
 	next();
 };
 
-export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, addThread, addReply, addLike };
+export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, getAllMyThread, getAllMyReply, getAllMyThreadFirstContent, addThread, addReply, addLike };
