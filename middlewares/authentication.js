@@ -14,7 +14,7 @@ const login = async (request, response, next) => {
 const admin_login = async (request, response, next) => {
 	const email = request.body.email;
 	const password = request.body.password;
-	const query = "SELECT * FROM users WHERE email=? AND password=?; AND role='admin'";
+	const query = "SELECT * FROM users WHERE email=? AND password=? AND role='admin'";
 	const queryArgs = [email, password];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);

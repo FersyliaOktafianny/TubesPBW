@@ -1,4 +1,3 @@
-import express from "express";
 import { sqlPool, executeQuery, getDbConnection } from "../modules/sql.js";
 
 const getAllUsers = async (request, response, next) => {
