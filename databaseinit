@@ -44,17 +44,27 @@ CREATE TABLE IF NOT EXISTS thread_contents(
 #DUMMY DATA
 INSERT INTO users(name, nickname, email, password, role, joined_date, status) VALUES
 ("admin", "mimin", "administrator@rebbit.com", "adminpass", 1, now(), 1),
+("moderator1", "mod777", "mod1@rebbit.com", "modpass", 2, now(), 1),
 ("john", "bruddah", "bruddabruh@osas.com", "mypass", 3, now(), 1);
 
 INSERT INTO thread_categories(name, description) VALUES
 ("News", "Membahas berita-berita terkini."),
 ("Entertainment", "Membahas hiburan apapun."),
+("Art", "Membahas seni apapun."),
+("Hobby", "Membahas hobi apapun."),
+("Technology", "Membahas teknologi apapun."),
 ("Other", NULL);
 
 INSERT INTO threads(title, created_date, lock_by, author_id, category_id) VALUES
 ("WEEKLY MEGATHREAD", now(), NULL, 1, 3),
-("A painfully ordinary rock just falls.", now(), NULL, 2, 1);
+("A painfully ordinary rock just falls.", now(), NULL, 2, 1),
+("Onion can eat vampire. Wake up.", now(), NULL, 3, 1);
 
 INSERT INTO thread_contents(thread_content, like_count, created_date, thread_id, author_id) VALUES
-("Gimme back my money.", 1002, now(), 1, 2),
-("Wow.", 2, now(), 2, 1);
+("This week megathread.", 1002, now(), 1, 1),
+("Gimme back my money.", 5, now(), 1, 3),
+("HHERES MY MONEY", 2, now(), 1, 3),
+("Thread locked. My money.", 2, now(), 1, 2),
+("I know. Crazy.", 10, now(), 2, 2),
+("Wake up.", 102, now(), 3, 3),
+("Wow.", 2, now(), 3, 2);

@@ -5,6 +5,7 @@ const addUserToSession = (request, response, next) => {
 	request.session.user_email = request.login_data.email;
 	request.session.user_name = request.login_data.name;
 	request.session.user_nickname = request.login_data.nickname;
+	request.session.user_joined_date = request.login_data.joined_date;
 	next();
 };
 

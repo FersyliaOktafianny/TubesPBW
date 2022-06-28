@@ -1,0 +1,14 @@
+<form class="form-card" method="post" action="/thread/<%= threadid %>/addReply">
+    <div>
+        <h2>Add Reply</h2>
+    </div>
+    <div>
+        <textarea name="replycontent" placeholder="Your Reply"></textarea>
+    </div>
+    <div>
+        <from action="/thread" method="post" enctype="multipar/form-data">
+            <input type="file" name="fileupload" id="fileUpload"/> <br/>
+        </from>
+        <Button type="submit">Post</Button>
+    </div>
+</form>

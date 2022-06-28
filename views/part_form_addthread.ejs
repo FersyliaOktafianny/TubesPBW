@@ -1,0 +1,21 @@
+<form class="form-card" method="post" action="/thread/add">
+    <div>
+        <h2>Create Thread</h2>
+    </div>
+    <div>
+        <input type="text" name="threadtitle" placeholder="Thread Title" />
+        <textarea name="threadcontent" placeholder="Thread Content"></textarea>
+    </div>
+    <div>
+        <select name="threadcategory">
+            <option disabled selected>Select Category</option>
+            <% for (const row of threadCategories) { %>
+            <option value="<%= row.id %>"><%= row.name %></option>
+            <% } %>
+        </select>
+        <from action="/thread" method="post" enctype="multipar/form-data">
+            <input type="file" name="fileupload" id="fileUpload"/> <br/>
+        </from>
+        <Button type="submit">Post</Button>
+    </div>
+</form>

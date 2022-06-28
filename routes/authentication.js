@@ -15,7 +15,7 @@ router.get("/login", (request, response, next) => {
 	response.render("login", {isNotAuth:''});
 });
 
-router.post("/login",  validateLogIn, login, addUserToSession, checkStatus, (request, response, next) => {
+router.post("/login", login, addUserToSession, checkStatus, (request, response, next) => {
 	response.redirect("/");
 });
 

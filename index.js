@@ -57,11 +57,13 @@ import { router as homeRoute } from "./routes/home.js";
 import { router as authenticationRoute } from "./routes/authentication.js";
 import { router as myRoute } from "./routes/my.js";
 import { router as threadRoute } from "./routes/thread.js";
+import { router as categoryRoute } from "./routes/category.js";
 
 app.use("/", homeRoute);
 app.use("/authentication", authenticationRoute);
 app.use("/my", myRoute);
 app.use("/thread", threadRoute);
+app.use("/category", categoryRoute);
 
 import { router as adminAuthenticationRoute } from "./routes/admin_authentication.js";
 import { router as adminHomeRoute } from "./routes/admin_users.js";
