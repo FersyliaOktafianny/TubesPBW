@@ -60,8 +60,7 @@ const validateLogIn = async (request, response, next) => {
 		}
 	}
 	else {
-		response.render("login", { isNotAuth: 'email not found!' });
-		return;
+		response.render("login", { isNotAuth: 'please input email and password!' });
 	}
 }
 

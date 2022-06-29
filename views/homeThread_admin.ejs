@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="navigation">
-            <button type="button">User Table</button>
-            <button type="button">Thread List</button>
+            <button type="button" onclick="location.href='/admin_home'">User Table</button>
+            <button type="button" onclick="location.href='/admin_thread'">Thread List</button>
         </div>
     </div>
     <div class="table-of-thread">
@@ -54,13 +54,13 @@
                         <%= data.created_date %>
                     </td>
                     <td>
-                        <%= data.name %>
+                        <%= data.category %>
                     </td>
                     <td>
                         <%= data.lock_by %>
                     </td>
                     <td>
-                        <%= data.users.name %>
+                        <%= data.name %>
                     </td>
                     <td>
                         <%= data.like_count %>
