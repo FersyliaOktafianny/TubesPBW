@@ -4,9 +4,13 @@ import { getAllMyThread, getAllMyThreadFirstContent, getAllMyReply } from "../mi
 
 const router = express.Router();
 
-router.get("/profile", checkLogin, checkStatus, (request, response, next) => {
+router.get("/profile", checkLogin, checkStatus, getAllMyThread, getAllMyReply, (request, response, next) => {
 	const dataToRender = {
 		user_nickname: request.session.user_nickname,
+		user_name: request.session.user_name,
+		user_joined_date: request.session.user_joined_date,
+		threadCount: request.queryAllMyThread.length,
+		replyCount: request.queryAllMyReply.length,
 	};
 	response.render("myprofile", dataToRender);
 });
