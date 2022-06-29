@@ -1,0 +1,15 @@
+<div class="main-thread-card">
+    <h1><%= threadtitle %></h1>
+    <h4><%= replies[0].nickname %></h4>
+    <div class="thread-content">
+        <div>
+            <p><%= replies[0].thread_content %></p>
+        </div>
+        <div>
+            <p><%= replies[0].like_count %></p>
+            <form method="post" action="/thread/<%= threadid %>/<%= replies[0].id %>/addLike">
+                <button type="submit" class="clickable">Like</button>
+            </form>
+        </div>
+    </div>
+</div>

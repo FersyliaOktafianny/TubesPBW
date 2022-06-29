@@ -55,6 +55,17 @@ const getAllThisThreadContent = async (request, response, next) => {
 	next();
 };
 
+const getAllThisCategoryThread = async (request, response, next) => {
+	const categoryid = request.params.categoryid;
+	const query = "SELECT * FROM threads WHERE category_id=? ORDER BY created_date DESC;";
+	const queryArgs = [categoryid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
+	request.queryAllThisCategoryThread = result;
+	next();
+};
+
 const getAllMyThread = async (request, response, next) => {
 	const authorid = request.session.user_id;
 	const query = "SELECT * FROM threads WHERE author_id=? ORDER BY created_date DESC;";
@@ -68,7 +79,7 @@ const getAllMyThread = async (request, response, next) => {
 
 const getAllMyReply = async (request, response, next) => {
 	const authorid = request.session.user_id;
-	const query = "SELECT thread_contents.*, threads.title FROM thread_contents LEFT JOIN threads ON threads.id=thread_contents.thread_id WHERE thread_contents.author_id=?;";
+	const query = "SELECT thread_contents.*, threads.title FROM thread_contents LEFT JOIN threads ON threads.id=thread_contents.thread_id WHERE thread_contents.author_id=? ORDER BY created_date DESC;";
 	const queryArgs = [authorid];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
@@ -126,4 +137,63 @@ const addLike = async (request, response, next) => {
 	next();
 };
 
-export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, getAllMyThread, getAllMyReply, getAllMyThreadFirstContent, addThread, addReply, addLike };
+const lockThread = async (request, response, next) => {
+	const threadid = request.params.threadid;
+	const query = "SELECT lock_by FROM threads WHERE id=?;";
+	const queryArgs = [threadid];
+	const dbConn = await getDbConnection(sqlPool);
+	const result = await executeQuery(dbConn, query, queryArgs);
+	if(result[0].lock_by){
+		const query = "UPDATE threads SET lock_by=NULL WHERE id=?;";
+		const queryArgs = [threadid];
+		const result2 = await executeQuery(dbConn, query, queryArgs);
+	}else{
+		const modid = request.session.user_id;
+		const query = "UPDATE threads SET lock_by=? WHERE id=?;";
+		const queryArgs = [modid, threadid];
+		const result2 = await executeQuery(dbConn, query, queryArgs);
+	}
+	dbConn.release();
+	next();
+};
+
+const checkThread = async (request, response, next) => {
+	if(request.params.threadid){
+		const threadid = request.params.threadid;
+		const query = "SELECT lock_by FROM threads WHERE id=?;";
+		const queryArgs = [threadid];
+		const dbConn = await getDbConnection(sqlPool);
+		const result = await executeQuery(dbConn, query, queryArgs);
+		dbConn.release();
+		if(result[0].lock_by){
+			response.redirect("back");
+			return;
+		}else{
+			next();
+			return;
+		}
+	}
+	if(request.params.threadcontentid){
+		const threadcontentid = request.params.threadcontentid;
+		const query = "SELECT thread_id FROM thread_contents WHERE id=?;";
+		const queryArgs = [threadcontentid];
+		const dbConn = await getDbConnection(sqlPool);
+		const result = await executeQuery(dbConn, query, queryArgs);
+		const threadid = result[0].thread_id;
+		const query2 = "SELECT lock_by FROM threads WHERE id=?;";
+		const queryArgs2 = [threadid];
+		const result2 = await executeQuery(dbConn, query, queryArgs);
+		if(result2[0].lock_by){
+			response.redirect("back");
+			return;
+		}else{
+			next();
+			return;
+		}
+		dbConn.release();
+		next();
+	}
+	
+};
+
+export { getAllThread, getAllThreadContent, getAllThreadFirstContent, getAllThisThreadContent, getAllThreadCategory, getAllThisCategoryThread, getAllMyThread, getAllMyReply, getAllMyThreadFirstContent, addThread, addReply, addLike, lockThread, checkThread };

@@ -1,25 +1,11 @@
 <html>
 	<head>
-		<link rel="stylesheet" href="../styles/main.css" />
+		<%- include("./part_config.ejs") %>
 		<link rel="stylesheet" href="../styles/userprofile.css" />
-		<title>REBBIT | <%= user_nickname %>'S PROFILE</title>
 	</head>
 	<body>
 		<div class="sticky">
-			<div class="header">
-				<div>
-					<img onclick="location.href='/'" src="../assets/rebbit1-removebg-preview.png" />
-					<h2>REBBIT | <%= user_nickname %>'s PROFILE</h2>
-				</div>
-				<div>
-					<button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
-				</div>
-			</div>
-			<div class="navigation">
-				<button type="button" onclick="location.href='/my/profile'">My Account</button>
-				<button type="button" onclick="location.href='/my/thread'">My Threads</button>
-				<button type="button" onclick="location.href='/my/reply'">My Replies</button>
-			</div>
+			<%- include("./part_header.ejs") %>
 		</div>
 		<div class="content">
 			<div class="content-card">

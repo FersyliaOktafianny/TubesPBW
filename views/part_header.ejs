@@ -1,0 +1,26 @@
+<div class="header">
+    <div>
+        <img onclick="location.href='/'" src="../assets/rebbit1-removebg-preview.png" />
+        <h2><%= pageTitle %></h2>
+    </div>
+    <div>
+        <% if (user_nickname) { %>
+            <button type="button" onclick="location.href='/my/profile'"><%= user_nickname %></button>
+            <button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
+        <% } else { %>
+            <button type="button" onclick="location.href='/authentication/login'">Log In</button>
+            <button type="button" onclick="location.href='/authentication/signup'">Sign Up</button>
+        <% } %>
+    </div>
+</div>
+<div class="navigation">
+    <% if (navigationType == "category") { %>
+        <% for (const row of threadCategories) { %>
+            <button type="button" onclick="location.href='/category/<%= row.id %>'"><%= row.name %></button>
+        <% } %>
+    <% } else { %>
+        <button type="button" onclick="location.href='/my/profile'">My Account</button>
+        <button type="button" onclick="location.href='/my/thread'">My Threads</button>
+        <button type="button" onclick="location.href='/my/reply'">My Replies</button>
+    <% } %>
+</div>

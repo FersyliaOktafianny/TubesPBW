@@ -1,0 +1,36 @@
+<% for (const row of threads) { %>
+    <div class="thread-card">
+        <div>
+            <h2 class="clickable" onclick="location.href='/thread/<%= row.id %>'"><%= row.title %></h2>
+        </div>
+        <div class="thread-content">
+            <% for (const row2 of threadsFirstContent) { %>
+                <% if (row2.thread_id == row.id) { %>
+                    <div>
+                        <p><%= row2.thread_content %></p>
+                    </div>
+                    <div>
+                        <p><%= row2.like_count %></p>
+                        <form method="post" action="/thread/<%= row.id %>/<%= row2.id %>/addLike">
+                            <button type="submit" class="clickable">Like</button>
+                        </form>
+                        <% if (user_role == "moderator" || user_role == "admin") { %>
+                            <form method="post" action="/thread/<%= row.id %>/lockThread">
+                                <% if (row.lock_by) { %>
+                                    <button type="submit" class="clickable">Unlock</button>
+                                <% } else { %>
+                                    <button type="submit" class="clickable">Lock</button>
+                                <% } %>
+                            </form>
+                        <% } else { %>
+                            <% if (row.lock_by) { %>
+                                <button type="submit">[LOCKED]</button>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <% break; %>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+<% } %>

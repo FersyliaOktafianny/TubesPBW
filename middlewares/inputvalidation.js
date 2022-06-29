@@ -41,6 +41,7 @@ const validateLogIn = async (request, response, next) => {
 	const queryArgs = [email, password];
 	const dbConn = await getDbConnection(sqlPool);
 	const result = await executeQuery(dbConn, query, queryArgs);
+	dbConn.release();
 
 	if (result.length > 0) {
 		if (result[0].password != password) {
@@ -55,6 +56,7 @@ const validateLogIn = async (request, response, next) => {
 		} else {
 			request.login_data = result[0]
 			next();
+			return;
 		}
 	}
 	else {

@@ -1,0 +1,16 @@
+<% for (let i = 1; i < replies.length; i++) { %>
+    <div class="thread-card">
+        <h4><%= replies[i].nickname %></h4>
+        <div class="thread-content">
+            <div>
+                <p><%= replies[i].thread_content %></p>
+            </div>
+            <div>
+                <p><%= replies[i].like_count %></p>
+                <form method="post" action="/thread/<%= threadid %>/<%= replies[i].id %>/addLike">
+                    <button type="submit" class="clickable">Like</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<% } %>
