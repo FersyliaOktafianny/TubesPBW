@@ -14,17 +14,14 @@
 				</div>
 				<div>
 					<% if (user_nickname) { %>
-					<button type="button" onclick="location.href='/userprofile'"><%= user_nickname %></button>
+					<button type="button"><%= user_nickname %></button>
 					<button type="button" onclick="location.href='/authentication/logout'">Log Out</button>
-					<% } else { %>
-					<button type="button" onclick="location.href='/authentication/login'">Log In</button>
-					<button type="button" onclick="location.href='/authentication/signup'">Sign Up</button>
 					<% } %>
 				</div>
 			</div>
 			<div class="navigation">
-                <button type="button">User Table</button>
-                <button type="button">Thread List</button>
+                <button type="button" onclick="location.href='/admin_home'">User Table</button>
+                <button type="button"  onclick="location.href='/admin_thread'">Thread List</button>
 			</div>
 		</div>
         <div class="table-of-user">
@@ -47,7 +44,7 @@
 					<td><%=i; %></td>
 					<td><%= data.name %></td>
 					<td><%= data.nickname %></td>
-					<td><%= data.email_address %></td>
+					<td><%= data.email %></td>
 					<td><%= data.role %></td>
 					<td><a href="">Set As Moderator</a></td>
 					<td><a href="">Ban</a></td>
