@@ -58,14 +58,7 @@ const validateLogIn = async (request, response, next) => {
 		}
 	}
 	else {
-		if (result[0].role == 'admin') {
-			response.render("login_admin", { isNotAuth: 'email not found!' });
-			return;
-		}
-		else {
-			response.render("login", { isNotAuth: 'email not found!' });
-			// response.redirect("back");
-		}
+		response.render("login", { isNotAuth: 'please input email and password!' });
 	}
 }
 
