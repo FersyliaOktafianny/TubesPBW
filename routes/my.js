@@ -23,6 +23,7 @@ router.get("/thread", checkLogin, checkStatus, getAllMyThread, getAllMyThreadFir
 		pageTitle: "REBBIT | " + request.session.user_nickname + "'S THREADS",
 		navigationType: "my",
 		user_nickname: request.session.user_nickname,
+		user_role: request.session.user_role,
 		threads: request.queryAllMyThread,
 		threadsFirstContent: request.queryAllMyThreadFirstContent,
 	};

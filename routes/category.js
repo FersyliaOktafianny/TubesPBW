@@ -10,6 +10,7 @@ router.get("/:categoryid", getAllThisCategoryThread, getAllThreadFirstContent, g
 		pageTitle: "REBBIT | CATEGORY",
 		navigationType: "category",
 		user_nickname: request.session.user_nickname,
+		user_role: request.session.user_role,
 		threads: request.queryAllThisCategoryThread,
         threadsFirstContent: request.queryAllThreadFirstContent,
 		threadCategories: request.queryAllThreadCategory,
